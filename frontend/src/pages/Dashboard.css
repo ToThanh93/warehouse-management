@@ -1,0 +1,176 @@
+/* Thêm hiệu ứng hover cho bảng */
+.table tbody tr:hover {
+  background-color: #f2f2f2; /* Màu nền khi hover */
+  cursor: pointer;
+}
+
+/* Card màu sắc bắt mắt */
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.05); /* Phóng to nhẹ khi hover */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Tiêu đề chính */
+h4 {
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Tăng khoảng cách giữa các hàng card */
+.card + .card {
+  margin-top: 20px;
+}
+
+/* Nền container */
+.container {
+  background-color: #f9f9f9; /* Nền sáng */
+  padding: 20px;
+  border-radius: 8px;
+}
+
+/* Button trong table (tuỳ chọn) */
+button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 5px;
+  transition: background-color 0.2s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Card màu sắc riêng biệt */
+.card {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-title {
+  font-weight: bold;
+}
+
+.card:nth-child(1) .card-body {
+  background-color: #e8f5e9; /* Màu xanh nhạt */
+  color: #2e7d32;
+}
+
+.card:nth-child(2) .card-body {
+  background-color: #e3f2fd; /* Màu xanh dương nhạt */
+  color: #1565c0;
+}
+
+.card:nth-child(3) .card-body {
+  background-color: #ffebee; /* Màu đỏ nhạt */
+  color: #c62828;
+}
+
+/* Bảng có màu xen kẽ */
+.table tbody tr:nth-child(even) {
+  background-color: #f9f9f9; /* Màu xám nhạt */
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: #ffffff; /* Màu trắng */
+}
+
+/* Tiêu đề bảng */
+.table thead {
+  background-color: #1565c0;
+  color: white;
+}
+
+.table tbody tr:hover {
+  background-color: #e3f2fd; /* Màu xanh hover */
+  cursor: pointer;
+}
+
+/* Nền container */
+.container {
+  background-color: #f5f5f5; /* Màu nền sáng */
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Tiêu đề chính */
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: #2e3b4e; /* Màu xám xanh đậm */
+  text-transform: uppercase;
+}
+
+/* Container nền sáng */
+.container {
+  background-color: #f9f9f9; /* Nền sáng */
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Bảng */
+.table {
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.table thead {
+  background-color: #3f51b5; /* Màu xanh dương đậm */
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f5f5f5; /* Xám nhạt */
+}
+
+.table tbody tr:nth-child(odd) {
+  background-color: #ffffff; /* Trắng */
+}
+
+.table tbody tr:hover {
+  background-color: #e8f0fe; /* Màu xanh nhạt khi hover */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Tiêu đề bảng */
+.table th {
+  text-align: center;
+}
+
+.table td {
+  text-align: center;
+  font-size: 1rem;
+  color: #455a64; /* Màu xám xanh nhạt */
+}
+
+/* Hiệu ứng hover cho bảng */
+.table tbody tr:hover td {
+  color: #1a237e; /* Xanh dương đậm khi hover */
+}
+
+/* Button */
+button {
+  background-color: #3f51b5; /* Màu xanh dương đậm */
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+button:hover {
+  background-color: #303f9f; /* Xanh dương đậm hơn khi hover */
+  transform: scale(1.05); /* Phóng to nhẹ */
+}
