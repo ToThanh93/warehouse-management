@@ -7,6 +7,7 @@ function TransactionForm() {
   const [product, setProduct] = useState('');
   const [transactionType, setTransactionType] = useState('IN');
   const [quantity, setQuantity] = useState(0);
+  const [date, setDate] = useState('');
 
   useEffect(() => {
     axios.get('/api/products/')
@@ -20,7 +21,8 @@ function TransactionForm() {
       product: product,
       transaction_type: transactionType,
       quantity: quantity,
-      user: 1, // Giả sử người dùng có id là 1
+      date: date,         // ✅ thêm ngày vào request
+      user: 1             // giả sử người dùng có ID = 1
     })
     .then(response => {
       alert('Giao dịch thành công!');
@@ -34,6 +36,7 @@ function TransactionForm() {
   return (
     <Form onSubmit={handleSubmit}>
       <h2>Ghi nhận giao dịch</h2>
+
       <Form.Group controlId="formProduct">
         <Form.Label>Sản phẩm:</Form.Label>
         <Form.Control as="select" value={product} onChange={e => setProduct(e.target.value)}>
@@ -45,16 +48,25 @@ function TransactionForm() {
       </Form.Group>
 
       <Form.Group controlId="formTransactionType">
-        <Form.Label>Loại giao dịch:</Form.Label>
+        <Form.Label>Transaction Type:</Form.Label>
         <Form.Control as="select" value={transactionType} onChange={e => setTransactionType(e.target.value)}>
-          <option value="IN">Nhập kho</option>
-          <option value="OUT">Xuất kho</option>
+          <option value="IN">import</option>
+          <option value="OUT">export</option>
         </Form.Control>
       </Form.Group>
 
       <Form.Group controlId="formQuantity">
         <Form.Label>Số lượng:</Form.Label>
         <Form.Control type="number" value={quantity} onChange={e => setQuantity(e.target.value)} />
+      </Form.Group>
+
+      <Form.Group controlId="formDate">
+        <Form.Label>Transaction date:</Form.Label>
+        <Form.Control
+          type="date"
+          value={date}
+          onChange={(e) => setDate(e.target.value)}
+        />
       </Form.Group>
 
       <Button variant="primary" type="submit" className="mt-3">

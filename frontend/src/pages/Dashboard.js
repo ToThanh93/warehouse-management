@@ -2,23 +2,22 @@ import React, { useEffect, useState } from 'react';
 import { Table, Container, Row, Col, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
+import ForecastChart from '../components/ForecastChart';
 
 function Dashboard() {
-  const [products, setProducts] = useState([]);
-  const [inventory, setInventory] = useState([]);
+  const [summary, setSummary] = useState({
+    total_products: 0,
+    total_warehouses: 0,
+    total_transactions: 0
+  });
   const [transactions, setTransactions] = useState([]);
-  const navigate = useNavigate(); // Sử dụng để điều hướng
+  const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/products/')
+    fetch('http://localhost:8000/api/summary/')
       .then((res) => res.json())
-      .then((data) => setProducts(data))
-      .catch((err) => console.error('Error fetching products:', err));
-
-    fetch('http://localhost:8000/api/inventory/')
-      .then((res) => res.json())
-      .then((data) => setInventory(data))
-      .catch((err) => console.error('Error fetching inventory:', err));
+      .then((data) => setSummary(data))
+      .catch((err) => console.error('Error fetching summary:', err));
 
     fetch('http://localhost:8000/api/transactions/')
       .then((res) => res.json())
@@ -28,12 +27,12 @@ function Dashboard() {
 
   return (
     <Container className="mt-4">
-      <Row>
+      <Row className="mb-3">
         <Col md={4}>
           <Card className="card-red" onClick={() => navigate('/products')} style={{ cursor: 'pointer' }}>
             <Card.Body>
               <Card.Title>Total Products</Card.Title>
-              <Card.Text>{products.length}</Card.Text>
+              <Card.Text>{summary.total_products}</Card.Text>
             </Card.Body>
           </Card>
         </Col>
@@ -41,7 +40,7 @@ function Dashboard() {
           <Card className="card-blue" onClick={() => navigate('/warehouses')} style={{ cursor: 'pointer' }}>
             <Card.Body>
               <Card.Title>Total Warehouses</Card.Title>
-              <Card.Text>{inventory.length}</Card.Text>
+              <Card.Text>{summary.total_warehouses}</Card.Text>
             </Card.Body>
           </Card>
         </Col>
@@ -49,15 +48,35 @@ function Dashboard() {
           <Card className="card-green" onClick={() => navigate('/transactions')} style={{ cursor: 'pointer' }}>
             <Card.Body>
               <Card.Title>Total Transactions</Card.Title>
-              <Card.Text>{transactions.length}</Card.Text>
+              <Card.Text>{summary.total_transactions}</Card.Text>
             </Card.Body>
           </Card>
         </Col>
       </Row>
+
+      <Row className="mb-4">
+        <Col md={6}>
+          <Card className="card-upload" onClick={() => navigate('/upload')} style={{ cursor: 'pointer' }}>
+            <Card.Body>
+              <Card.Title>📤 Upload CSV</Card.Title>
+              <Card.Text>Import products or transactions</Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+        <Col md={6}>
+          <Card className="card-inventory" onClick={() => navigate('/inventory-overview')} style={{ cursor: 'pointer' }}>
+            <Card.Body>
+              <Card.Title>📦 Inventory Overview</Card.Title>
+              <Card.Text>Check current stock levels</Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+      </Row>
+
       <Row className="mt-4">
         <Col>
           <h4 className="text-center">Recent Transactions</h4>
-          <Table striped bordered hover>
+          <Table striped bordered hover responsive>
             <thead>
               <tr>
                 <th>#</th>
@@ -67,16 +86,22 @@ function Dashboard() {
               </tr>
             </thead>
             <tbody>
-              {transactions.slice(0, 5).map((transaction, index) => (
-                <tr key={index}>
+              {transactions.slice(0, 5).map((transaction) => (
+                <tr key={transaction.id}>
                   <td>{transaction.id}</td>
-                  <td>{transaction.product.name || 'N/A'}</td>
+                  <td>{transaction.product?.name || 'N/A'}</td>
                   <td>{transaction.quantity}</td>
                   <td>{new Date(transaction.date).toLocaleDateString()}</td>
                 </tr>
               ))}
             </tbody>
           </Table>
+        </Col>
+      </Row>
+
+      <Row className="mt-5">
+        <Col>
+          <ForecastChart />
         </Col>
       </Row>
     </Container>

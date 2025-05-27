@@ -1,0 +1,9 @@
+# Default values 
+replicaCount: 2 
+image: 
+"  repository: myrepo/wms" 
+"  tag: latest" 
+resources: 
+"  limits:" 
+"    cpu: 500m" 
+"    memory: 512Mi" 
