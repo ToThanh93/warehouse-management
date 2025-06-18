@@ -14,16 +14,29 @@ function Dashboard() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch('http://localhost:8000/api/summary/')
-      .then((res) => res.json())
-      .then((data) => setSummary(data))
-      .catch((err) => console.error('Error fetching summary:', err));
+  const token = localStorage.getItem('access');
 
-    fetch('http://localhost:8000/api/transactions/')
-      .then((res) => res.json())
-      .then((data) => setTransactions(data))
-      .catch((err) => console.error('Error fetching transactions:', err));
-  }, []);
+  const headers = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${token}`
+  };
+
+  fetch('http://localhost:8000/api/summary/', { headers })
+    .then((res) => {
+      if (!res.ok) throw new Error('Failed to fetch summary');
+      return res.json();
+    })
+    .then((data) => setSummary(data))
+    .catch((err) => console.error('Error fetching summary:', err));
+
+  fetch('http://localhost:8000/api/transactions/', { headers })
+    .then((res) => {
+      if (!res.ok) throw new Error('Failed to fetch transactions');
+      return res.json();
+    })
+    .then((data) => setTransactions(data))
+    .catch((err) => console.error('Error fetching transactions:', err));
+}, []);
 
   return (
     <Container className="mt-4">

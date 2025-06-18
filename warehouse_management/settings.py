@@ -99,6 +99,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.SessionAuthentication',  # Xác thực qua session (đặc biệt hữu ích nếu đã đăng nhập qua trang admin)
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.BasicAuthentication',  # Xác thực cơ bản, thường dùng cho testing hoặc phát triển
     ],
 }

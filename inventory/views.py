@@ -20,7 +20,7 @@ from .serializers import (
 from django.contrib.auth.models import User
 from datetime import datetime, timedelta
 from .ai_module import forecast_product_demand  # 🔁 GỌI MÔ-ĐUN AI THẬT
-
+from rest_framework.exceptions import ValidationError
 # ------------------ CRUD ViewSets ----------------------
 
 class ProductViewSet(ModelViewSet):
@@ -31,9 +31,17 @@ class InventoryViewSet(ModelViewSet):
     queryset = Inventory.objects.all()
     serializer_class = InventorySerializer
 
-class TransactionViewSet(ModelViewSet):
-    queryset = Transaction.objects.all().order_by('-date')  # 🟢 Quan trọng
+class TransactionViewSet(viewsets.ModelViewSet):
+    queryset = Transaction.objects.all().order_by('-date')
     serializer_class = TransactionSerializer
+
+    def perform_create(self, serializer):
+        from django.contrib.auth.models import User
+        default_user = User.objects.filter(username="NewThanh").first()
+        if not default_user:
+            raise ValidationError("Default user not found")
+        serializer.save(user=default_user)
+
 
 class ForecastViewSet(ModelViewSet):
     queryset = Forecast.objects.all().order_by('-date')  # 🟢 Quan trọng
@@ -209,7 +217,7 @@ def inventory_alerts(request):
             alerts.append({
                 "product": inventory.product.name,
                 "current_quantity": inventory.quantity,
-                "min_qty": inventory.min_quantity  # ✅ sửa chỗ này
+                "min_qty": inventory.min_quantity  #
             })
     return Response(alerts)
     

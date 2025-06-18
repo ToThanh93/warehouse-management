@@ -29,15 +29,15 @@ class TransactionSerializer(serializers.ModelSerializer):
         queryset=Product.objects.all(), source='product', write_only=True
     )
 
-    user = serializers.StringRelatedField(read_only=True)
-    user_id = serializers.PrimaryKeyRelatedField(
-        queryset=User.objects.all(), source='user', write_only=True
-    )
+    user = serializers.StringRelatedField(read_only=True)  # ✅ chỉ hiển thị
+    # ❌ Bỏ dòng user_id, vì bạn gán trong perform_create
 
-    date = serializers.DateTimeField(required=False)  #
+    date = serializers.DateTimeField(required=False)
     class Meta:
         model = Transaction
-        fields = ['id', 'product', 'product_id', 'transaction_type', 'quantity', 'date', 'user', 'user_id']
+        fields = ['id', 'product', 'product_id', 'transaction_type', 'quantity', 'date', 'user']
+        # ❌ Không cần user_id
+
 class WarehouseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Warehouse

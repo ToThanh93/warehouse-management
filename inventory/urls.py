@@ -5,6 +5,7 @@ from .views import (
     summary, demand_forecast, ForecastRequestView, WarehouseViewSet, inventory_alerts
 )
 
+
 router = DefaultRouter()
 router.register(r'products', ProductViewSet)
 router.register(r'inventory', InventoryViewSet)
@@ -18,6 +19,6 @@ urlpatterns = [
     path('forecasts/', demand_forecast),               
     path('upload-csv/', CSVUploadView.as_view()),
     path('inventory-alerts/',inventory_alerts),
-    path('v1/forecast/', ForecastRequestView.as_view()) 
+    path('v1/forecast/', ForecastRequestView.as_view()),
 ]
 

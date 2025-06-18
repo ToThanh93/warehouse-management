@@ -1,20 +1,29 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Container } from 'react-bootstrap';
+import AddTransactionForm from '../components/AddTransactionForm';
 
 function Transactions() {
   const [transactions, setTransactions] = useState([]);
 
-  useEffect(() => {
+  const fetchTransactions = () => {
     fetch('http://localhost:8000/api/transactions/')
       .then((res) => res.json())
       .then((data) => setTransactions(data))
       .catch((err) => console.error('Error fetching transactions:', err));
+  };
+
+  useEffect(() => {
+    fetchTransactions();
   }, []);
 
   return (
     <Container className="mt-4">
       <h1 className="text-center">Transactions</h1>
-      <Table striped bordered hover responsive>
+
+      {/* Form thêm giao dịch */}
+      <AddTransactionForm onSuccess={fetchTransactions} />
+
+      <Table striped bordered hover responsive className="mt-4">
         <thead className="table-light text-center">
           <tr>
             <th>#</th>
